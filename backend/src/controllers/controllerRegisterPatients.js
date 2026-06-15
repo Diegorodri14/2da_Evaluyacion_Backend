@@ -2,13 +2,12 @@ import nodemailer from "nodemailer";
 import crypto from "crypto";
 import jsonwebtoken from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
-import {v2 as Cloudinary } from "cloudinary";
+import { v2 as Cloudinary } from "cloudinary";
 
 import patientsModal from "../models/patients.js";
 
 import { config } from "../../config.js";
 import { register } from "module";
-import { error, info } from "console";
 
 const registerPatientsController = {};
 
@@ -28,7 +27,7 @@ registerPatientsController.register = async (req, res) => {
     } = req.body;
 
     const existPatient = await patientsModal.findOne({ email });
-    if (!existPatient) {
+    if (existPatient) {
       return res
         .status(400)
         .json({ message: "El paciente ya esta registrado" });
@@ -49,7 +48,7 @@ registerPatientsController.register = async (req, res) => {
       phoneEmergencyContacts,
       profilePhoto,
       public_id,
-      isVerfied,
+      isVerified,
     });
 
     (config.JWT.secret, { expireIn: "25m" });
@@ -106,6 +105,7 @@ registerPatientsController.verifyCode = async (req, res) => {
       phoneEmergencyContacts,
       profilePhoto,
       public_id,
+      isVerified,
     } = decoded;
 
     if (verificationCodeRequest !== storedCode) {
@@ -125,7 +125,7 @@ registerPatientsController.verifyCode = async (req, res) => {
       phoneEmergencyContacts,
       profilePhoto: req.file.path,
       public_id: req.file.filename,
-      isVerfied: true,
+      isVerified: true,
     });
 
     await newPatient.save();
@@ -139,4 +139,4 @@ registerPatientsController.verifyCode = async (req, res) => {
   }
 };
 
-export default registerPatientsController
+export default registerPatientsController;

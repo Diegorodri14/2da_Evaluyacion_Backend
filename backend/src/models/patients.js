@@ -21,7 +21,7 @@ const patientsSchema = new Schema(
     lastName: { type: String },
     email: { type: String },
     password: { type: String },
-    birthDaet: { type: Date },
+    birthDate: { type: Date },
     phone: { type: String },
     address: { type: String },
     phoneEmergencyContac: [
@@ -32,7 +32,7 @@ const patientsSchema = new Schema(
     ],
     profilePhoto: { type: String },
     public_id: { type: String },
-    isVerifed: { type: Boolean },
+    isVerified: { type: Boolean },
     loginAttemps: { type: Number },
     timeOut: { type: Date },
   },
