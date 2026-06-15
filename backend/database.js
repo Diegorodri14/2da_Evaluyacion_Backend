@@ -2,7 +2,7 @@ import mongoose, { disconnect } from "mongoose";
 
 mongoose.connect("mongodb://localhost:27017/HospitalRosales")
 
-const connection = mongoose.Connection
+const connection = mongoose.connection
 
 connection.on("open", () =>{
     console.log("base conectada")
